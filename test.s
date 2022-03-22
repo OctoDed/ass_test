@@ -40,11 +40,11 @@ addl $8, %esp
 
 cmpl $3, %eax 
 jl less 
-addl (%ebx), %edx /* найден больший эл. */
+add (%ebx), %edx /* найден больший эл. */
 jmp next
 
 less:
-addl (%ebx), %ecx /* найден меньший эл. */
+add (%ebx), %ecx /* найден меньший эл. */
 jmp next 
 
 next: /* след. элемент */
@@ -55,12 +55,12 @@ ch_bound: /* проверка на конец массива */
 cmpl $array_end, %ebx 
 jne loop_start
 
-pushl (%ecx) /* вывод sum_less */
+pushl %ecx /* вывод sum_less */
 pushl $print_less
 call printf
 addl $8, %esp
 
-pushl (%edx) /* вывод sum_gr */
+pushl %edx /* вывод sum_gr */
 pushl $print_gr
 call printf
 addl $8, %esp
