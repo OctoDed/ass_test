@@ -6,10 +6,10 @@ print_b:
 .string "b=3\n"
 
 print_less:
-.string "Summ of lesser elements: %d\n"
+.string "Summ of lesser elements: "
 
 print_gr:
-.string "Summ of greater elements: %d\n"
+.string "Summ of greater elements: "
 
 array:
 .long 1, 2, 3, 4, 5
@@ -22,52 +22,50 @@ array_end:
 main:
 movl $0, %ecx /* summ of less */
 movl $0, %edx /* summ of greater */
-movl $3, %esi /* b */
-/*pushl (%esi)*/
+
 pushl $print_b 
 call printf 
-addl $8, %esp
+addl $4, %esp
 
-movl $array, %ebx 
-movl (%ebx), %eax 
+movl $array, %ebx /* адрес текущего элемента */
+movl (%ebx), %eax /* значение текущего элемента */
+jmp ch_bound
 
 loop_start:
-movl (%ebx), %eax 
+movl (%ebx), %eax /* вывод массива */
 pushl (%ebx)
 pushl $print_array
 call printf
 addl $8, %esp
 
-cmpl (%esi), %eax 
+cmpl $3, %eax 
 jl less 
-add (%ebx), %edx 
+addl (%ebx), %edx /* найден больший эл. */
 jmp next
 
 less:
-add (%ebx), %ecx 
+addl (%ebx), %ecx /* найден меньший эл. */
 jmp next 
 
-next:
+next: /* след. элемент */
 addl $4, %ebx 
 movl (%ebx), %eax
 
-ch_bound:
+ch_bound: /* проверка на конец массива */
 cmpl $array_end, %ebx 
 jne loop_start
 
-pushl (%ecx)
+pushl (%ecx) /* вывод sum_less */
 pushl $print_less
 call printf
 addl $8, %esp
 
-pushl (%edx)
+pushl (%edx) /* вывод sum_gr */
 pushl $print_gr
 call printf
 addl $8, %esp
 
-movl $0, %esi
 movl $0, %edx
 movl $0, %ecx
 movl $0, %ebx
 movl $0, %eax
-
