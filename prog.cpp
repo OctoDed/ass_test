@@ -16,8 +16,8 @@ int main()
 	for(auto i : arr)
 	{
 	if (i>b) sum_gr=sum_gr+i;
-	else if (i<b) sum_less=sum_less+i;
+	else if (i<b) sum_less++;
 	}
-	cout<<"Summ of lesser elements: "<<sum_less<<endl;
+	cout<<"Quantity of lesser elements: "<<sum_less<<endl;
 	cout<<"Summ of greater elements: "<<sum_gr<<endl;
 }
