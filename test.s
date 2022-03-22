@@ -6,10 +6,10 @@ print_b:
 .string "b=3\n"
 
 print_less:
-.string "Summ of lesser elements: "
+.string "Summ of lesser elements: %d\n"
 
 print_gr:
-.string "Summ of greater elements: "
+.string "Summ of greater elements: %d\n"
 
 array:
 .long 1, 2, 3, 4, 5
